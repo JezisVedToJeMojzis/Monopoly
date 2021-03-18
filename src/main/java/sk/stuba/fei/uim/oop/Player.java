@@ -61,25 +61,22 @@ public class Player {
         return inJail;
     }
 
-    //Set the player in jail
+    //Set the player in jail (or free him)
     public void setInJail(boolean status)
     {
         inJail = status;
-        if(!inJail) {
-            lapsInJail = 0;
-        }
     }
 
-    //Set laps in jail to 0 (player is free)
-    public void resetLapsInJail()
+    //Substract one lap from punishment
+    public void substractOneLapInJail()
     {
-        lapsInJail = 0;
+        lapsInJail -=1;
     }
 
-    //Add one lap to his punishment (max 2)
-    public void addJailLap()
+    //Add two laps to his punishment
+    public void addLapsinJail()
     {
-        lapsInJail++;
+        lapsInJail+=2;
     }
 
     //Check how long his punishment lasts
@@ -94,17 +91,31 @@ public class Player {
         return budget;
     }
 
+    //Get buildings bought by player
+    public String getBuildings()
+    {
+        return buildings;
+    }
+
+    //Get buildings bought by player
+    public void addBuildings(String newBuilding)
+    {
+        buildings += ", " + newBuilding;
+    }
+
     //Set new budget for player -> add or subtract money
     public void setBudget(int money)
     {
         budget += money;
     }
 
+    //Is player dead?
     public boolean isDead()
     {
         return dead;
     }
 
+    //Kill player
     public void setDead()
     {
         dead = true;
