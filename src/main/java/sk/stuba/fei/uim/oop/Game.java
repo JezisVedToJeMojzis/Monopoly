@@ -214,39 +214,120 @@ public class Game {
         int newPosition;
         for (int j = 0; j<numberOfPlayers; j++)
         {
-            //Throwing dice
+            //Skipping dead players
+            if (players[j].isDead()== true)
+            {
+                j++;
+            }
+
             System.out.println("\n***Player [" + players[j].getName() + "] is on turn***");
+            System.out.println("\nHere is your profile:\n" + players[j] + "\n");
+            //If current player is in jail - skip him and substract one lap from his punishment
+            if (players[j].isInJail() == true)
+            {
+                //If laps in prison = 0 set him free
+                if (players[j].getLapsInJail()==0)
+                {
+                    players[j].setInJail(false);
+                    System.out.println("\nGOOD NEWS, YOU ARE FREE FROM PRISON\n");
+                    System.out.println("\nYour current status in jail is false, here is your updated profile:\n" + players[j] + "\n");
+                    enter.pressEnterToContinue();
+                }
+                //If laps in prison > 0
+                else{
+                    System.out.println("\n###YOU ARE IN PRISON, BETTER BE QUIET###\n");
+                    System.out.println("\n###The remaining length of your punishment is: " + players[j].getLapsInJail() + " laps");
+                    System.out.println("\nProceed to next players turn");
+                    players[j].substractOneLapInJail();
+                    enter.pressEnterToContinue();
+                    j++;
+                    System.out.println("\n***Player [" + players[j].getName() + "] is on turn***");
+                    System.out.println("\nHere is your profile:\n" + players[j] + "\n");
+
+                }
+            }
+
+            //Throwing dice
             numberFromDice = dice.getDice();
             System.out.println("\n[" + players[j].getName() + "] threw dice and the number that has landed is " + numberFromDice+ "\n");
 
             //Setting new position based on number from dice
             players[j].setPosition(players[j].getPosition()+numberFromDice);
             newPosition= players[j].getPosition();
+            int lastPosition = newPosition;
             System.out.println("New position of player [" + players[j].getName() + "] is: " + newPosition +"\n");
 
+            //If player finishes round
+            if (newPosition > 24)
+            {
+                newPosition = numberFromDice - (24 - lastPosition);
+                //If player is on START
+                if (newPosition == 1)
+                {
+                    System.out.println("\nGood job, you survived another round. Now you are standing on START, here is 200 money to your budget");
+                    players[j].setBudget(200);
+                    System.out.println("\nYour current budget is: " + players[j].getBudget());
+                }
+                //If player passed START
+                else{
+                    System.out.println("\nYou went throught the START. You are getting 200 money to your budget");
+                    players[j].setBudget(200);
+                    System.out.println("\nYour current budget is: " + players[j].getBudget());
+                }
+            }
+
+            //*** STEPPING ON BUILDING ***
             int answerFromPlayer;
             for (int i = 0;i<16;i++)
             {
+                //If nobody owns building on players position
                 if (newPosition == buildings[i].getPosition() && buildings[i].getOwner()== "None")
                 {
-                    System.out.println("On this position is building named <" + buildings[i].getName() +  "> that doesnt belong to anybody\nDo you want to purchase it for " + buildings[i].getCost() + " money? [1/0]\n");
+                    System.out.println("\nOn this position is building named <" + buildings[i].getName() +  "> that doesnt belong to anybody\nDo you want to purchase it for " + buildings[i].getCost() + " money? [1/0]\n");
                     Scanner answer = new Scanner(System.in);
                     answerFromPlayer = answer.nextInt();
+
+                    //If player decides to buy building
                     if (answerFromPlayer==1)
                     {
                         buildings[i].setOwner(players[j].getName());
                         System.out.println("Congratulations! You just bought yourself a brand new property!\nTheres some information about this building:\n\n" + buildings[i]);
 
                     }
+                    //If player decides to not buy building
                     if (answerFromPlayer==0)
                     {
-                        System.out.println("Understandable. Have a great day sir!");
+                        System.out.println("\nUnderstandable. Have a great day sir!\n");
                     }
+                    //If player writes some nonsense
                     else
                     {
-                        System.out.println("Invalid answer... Try again!");
+                        System.out.println("\nInvalid answer... Try again!\n");
                     }
                 }
+
+                //If somebody owns building on players position
+                if (newPosition == buildings[i].getPosition() && buildings[i].getOwner()!= "None")
+                {
+                    System.out.println("\nOn this position is building named <" + buildings[i].getName() +  "> that belongs to player [" + buildings[i].getOwner() + "]\nThe fine by steppin on his property is " + buildings[i].getFine() + " and it was automatically taken from your budget\n");
+                    players[j].setBudget(-buildings[i].getFine());
+
+                    //If players budget is under 0 , player dies and all his buildings are now free to buy
+                    if (players[j].getBudget()<0)
+                    {
+                        players[j].setDead();//rip
+                        for (int k = 0;k<16;k++)
+                        {
+                            if(buildings[k].getOwner() == players[j].getName())
+                            {
+                                buildings[k].setOwner("None");
+                            }
+                        }
+
+                    }
+                }
+
+                //uz len vazenie policia parkovisko sance
             }
 
 
