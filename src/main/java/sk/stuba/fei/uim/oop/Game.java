@@ -6,6 +6,7 @@ import java.util.ArrayList;
 public class Game {
 
     public static ArrayList<Player> players;
+    public static ArrayList<Building> buildings;
 
     //Press enter to continue function
     private void pressEnterToContinue()
@@ -17,61 +18,149 @@ public class Game {
         }
     }
 
+
     public static void main(String[] args) {
 
-        //Creating objects of building
-        Building building1 = new Building();
-        Building building2 = new Building();
-        Building building3 = new Building();
-        Building building4 = new Building();
-        Building building5 = new Building();
-        Building building6 = new Building();
-        Building building7 = new Building();
-        Building building8 = new Building();
-        Building building9 = new Building();
-        Building building10 = new Building();
-        Building building11 = new Building();
-        Building building12 = new Building();
-        Building building13 = new Building();
-        Building building14 = new Building();
-        Building building15 = new Building();
-        Building building16 = new Building();
+        //Dice object
+        Dice dice = new Dice();
 
-        //Setting costs of buildings
-        building1.cost = 100;
-        building2.cost = 120;
-        building3.cost = 150;
-        building4.cost = 180;
-        building5.cost = 210;
-        building6.cost = 240;
-        building7.cost = 270;
-        building8.cost = 300;
-        building9.cost = 350;
-        building10.cost = 400;
-        building11.cost = 420;
-        building12.cost = 440;
-        building13.cost = 460;
-        building14.cost = 480;
-        building15.cost = 500;
-        building16.cost = 600;
+        //Player object
+        Player player = new Player();
 
-        //Setting fines of building
-        building1.fine = 50;
-        building2.fine = 60;
-        building3.fine = 75;
-        building4.fine = 90;
-        building5.fine = 105;
-        building6.fine = 120;
-        building7.fine = 135;
-        building8.fine = 150;
-        building9.fine = 175;
-        building10.fine = 200;
-        building11.fine = 210;
-        building12.fine = 220;
-        building13.fine = 230;
-        building14.fine = 240;
-        building15.fine = 150;
-        building16.fine = 300;
+        //Setting building objects (name,cost,fine,position)
+        Building [] buildings = new Building [16];
+        String nameOfBuilding;
+        int cost = 100;
+        int fine = 25;
+        String names = "Building1";
+        for (int i = 0; i < 16; i++)
+        {
+            if (i==1)
+            {
+                names = "Building2";
+            }
+            if (i==2)
+            {
+                names = "Building3";
+            }
+            if (i==3)
+            {
+                names = "Building4";
+            }
+            if (i==4)
+            {
+                names = "Building5";
+            }
+            if (i==5)
+            {
+                names = "Building6";
+            }
+            if (i==6)
+            {
+                names = "Building7";
+            }
+            if (i==8)
+            {
+                names = "Building9";
+            }
+            if (i==9)
+            {
+                names = "Building10";
+            }
+            if (i==10)
+            {
+                names = "Building11";
+            }
+            if (i==11)
+            {
+                names = "Building12";
+            }
+            if (i==12)
+            {
+                names = "Building13";
+            }
+            if (i==13)
+            {
+                names = "Building14";
+            }
+            if (i==14)
+            {
+                names = "Building15";
+            }
+            if (i==15)
+            {
+                names = "Building16";
+            }
+            nameOfBuilding = names;
+            buildings[i] = new Building(nameOfBuilding);
+            buildings[i].setCost(cost);
+            buildings[i].setFine(fine);
+            cost+=50;
+            fine+=25;
+            if (i==0)
+            {
+                buildings[i].setPosition(2);
+            }
+            if (i==1)
+            {
+                buildings[i].setPosition(3);
+            }
+            if (i==2)
+            {
+                buildings[i].setPosition(5);
+            }
+            if (i==3)
+            {
+                buildings[i].setPosition(6);
+            }
+            if (i==4)
+            {
+                buildings[i].setPosition(8);
+            }
+            if (i==5)
+            {
+                buildings[i].setPosition(9);
+            }
+            if (i==6)
+            {
+                buildings[i].setPosition(11);
+            }
+            if (i==8)
+            {
+                buildings[i].setPosition(12);
+            }
+            if (i==9)
+            {
+                buildings[i].setPosition(14);
+            }
+            if (i==10)
+            {
+                buildings[i].setPosition(15);
+            }
+            if (i==11)
+            {
+                buildings[i].setPosition(17);
+            }
+            if (i==12)
+            {
+                buildings[i].setPosition(18);
+            }
+            if (i==13)
+            {
+                buildings[i].setPosition(20);
+            }
+            if (i==14)
+            {
+                buildings[i].setPosition(21);
+            }
+            if (i==15)
+            {
+                buildings[i].setPosition(22);
+            }
+        }
+
+        //Welcome message
+        System.out.println("\n***!WELCOME TO MONOPOLY!***\n");
 
         //Select number of players
         int numberOfPlayers = 0;
@@ -115,5 +204,57 @@ public class Game {
         {
             System.out.println(players[i]);
         }
+
+        System.out.println("Players are at START (position 1)\n");
+        System.out.println("***!THE GAME CAN BEGIN!***\n");
+        enter.pressEnterToContinue();
+
+
+        int numberFromDice;
+        int newPosition;
+        for (int j = 0; j<numberOfPlayers; j++)
+        {
+            //Throwing dice
+            System.out.println("\n***Player [" + players[j].getName() + "] is on turn***");
+            numberFromDice = dice.getDice();
+            System.out.println("\n[" + players[j].getName() + "] threw dice and the number that has landed is " + numberFromDice+ "\n");
+
+            //Setting new position based on number from dice
+            players[j].setPosition(players[j].getPosition()+numberFromDice);
+            newPosition= players[j].getPosition();
+            System.out.println("New position of player [" + players[j].getName() + "] is: " + newPosition +"\n");
+
+            int answerFromPlayer;
+            for (int i = 0;i<16;i++)
+            {
+                if (newPosition == buildings[i].getPosition() && buildings[i].getOwner()== "None")
+                {
+                    System.out.println("On this position is building named <" + buildings[i].getName() +  "> that doesnt belong to anybody\nDo you want to purchase it for " + buildings[i].getCost() + " money? [1/0]\n");
+                    Scanner answer = new Scanner(System.in);
+                    answerFromPlayer = answer.nextInt();
+                    if (answerFromPlayer==1)
+                    {
+                        buildings[i].setOwner(players[j].getName());
+                        System.out.println("Congratulations! You just bought yourself a brand new property!\nTheres some information about this building:\n\n" + buildings[i]);
+
+                    }
+                    if (answerFromPlayer==0)
+                    {
+                        System.out.println("Understandable. Have a great day sir!");
+                    }
+                    else
+                    {
+                        System.out.println("Invalid answer... Try again!");
+                    }
+                }
+            }
+
+
+
+        }
+
+
+
+
     }
 }

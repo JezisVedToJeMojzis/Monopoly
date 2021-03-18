@@ -10,10 +10,21 @@ public class Player {
     private int lapsInJail;
     private boolean dead;
 
+    public Player()
+    {
+        name = new String("UNKNOWN");;
+        position = 1;
+        budget = 250;
+        buildings = "None";
+        inJail = false;
+        lapsInJail = 0;
+        dead = false;
+    }
+
     public Player(String nick)
     {
         name = nick;
-        position = 0;
+        position = 1;
         budget = 250;
         buildings = "None";
         inJail = false;
@@ -25,6 +36,11 @@ public class Player {
     public void setName(String nick)
     {
         name = nick;
+    }
+
+    public String getName()
+    {
+        return name;
     }
 
     //Get position of player
