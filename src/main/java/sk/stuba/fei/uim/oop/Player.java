@@ -14,7 +14,7 @@ public class Player {
     {
         name = new String("UNKNOWN");;
         position = 1;
-        budget = 250;
+        budget = 500;
         buildings = "None";
         inJail = false;
         lapsInJail = 0;
@@ -25,7 +25,7 @@ public class Player {
     {
         name = nick;
         position = 1;
-        budget = 250;
+        budget = 500;
         buildings = "None";
         inJail = false;
         lapsInJail = 0;

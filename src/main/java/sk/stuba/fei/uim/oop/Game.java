@@ -1,13 +1,14 @@
 package sk.stuba.fei.uim.oop;
 import java.util.Random;
-import  java.util.Scanner;
-import java.util.ArrayList;
 
+//BOARD: 1 = START
+//       7 = PRISON
+//       13 = PARKING
+//       19 = POLICE
+//       4,10,16,22 = CHANCE
+//       2,3,5,6,8,9,11,12,14,15,17,18,20,21,23,24 = BUILDINGS
 
 public class Game {
-
-    public static ArrayList<Player> players;
-    public static ArrayList<Building> buildings;
 
     //Press enter to continue function
     private void pressEnterToContinue()
@@ -30,144 +31,144 @@ public class Game {
         return throwTheDice;
     }
 
+    //Generating random number for chance cards
+    private int grabChanceCard;
+    private int randomChance() {
+        int min = 1;
+        int max = 9;
+
+        Random random = new Random();
+
+        grabChanceCard = random.nextInt(max + min) + min;
+        return grabChanceCard;
+    }
+
 
     public static void main(String[] args) {
 
         //Dice object
         Game dice = new Game();
 
+        //Generating random chance number object
+        Game card = new Game();
+
+        //Chance cards
+        Chances chance = new Chances();
+
         //Player object
         Player player = new Player();
 
+        //Input
+        KeyboardInput input = new KeyboardInput();
+
+        //Enter to continue
+        Game enter = new Game();
+
         //Setting building objects (name,cost,fine,position)
-        Building [] buildings = new Building [16];
+        Building[] buildings = new Building[17];
         String nameOfBuilding;
         int cost = 100;
         int fine = 25;
         String names = "Building1";
-        for (int i = 0; i < 16; i++)
-        {
-            if (i==1)
-            {
+        for (int i = 0; i < 17; i++) {
+            if (i == 1) {
                 names = "Building2";
             }
-            if (i==2)
-            {
+            if (i == 2) {
                 names = "Building3";
             }
-            if (i==3)
-            {
+            if (i == 3) {
                 names = "Building4";
             }
-            if (i==4)
-            {
+            if (i == 4) {
                 names = "Building5";
             }
-            if (i==5)
-            {
+            if (i == 5) {
                 names = "Building6";
             }
-            if (i==6)
-            {
+            if (i == 6) {
                 names = "Building7";
             }
-            if (i==8)
-            {
+            if (i == 8) {
+                names = "Building8";
+            }
+            if (i == 9) {
                 names = "Building9";
             }
-            if (i==9)
-            {
+            if (i == 10) {
                 names = "Building10";
             }
-            if (i==10)
-            {
+            if (i == 11) {
                 names = "Building11";
             }
-            if (i==11)
-            {
+            if (i == 12) {
                 names = "Building12";
             }
-            if (i==12)
-            {
+            if (i == 13) {
                 names = "Building13";
             }
-            if (i==13)
-            {
+            if (i == 14) {
                 names = "Building14";
             }
-            if (i==14)
-            {
+            if (i == 15) {
                 names = "Building15";
             }
-            if (i==15)
-            {
+            if (i == 16) {
                 names = "Building16";
             }
             nameOfBuilding = names;
             buildings[i] = new Building(nameOfBuilding);
             buildings[i].setCost(cost);
             buildings[i].setFine(fine);
-            cost+=50;
-            fine+=25;
-            if (i==0)
-            {
+            cost += 50;
+            fine += 25;
+            if (i == 0) {
                 buildings[i].setPosition(2);
             }
-            if (i==1)
-            {
+            if (i == 1) {
                 buildings[i].setPosition(3);
             }
-            if (i==2)
-            {
+            if (i == 2) {
                 buildings[i].setPosition(5);
             }
-            if (i==3)
-            {
+            if (i == 3) {
                 buildings[i].setPosition(6);
             }
-            if (i==4)
-            {
+            if (i == 4) {
                 buildings[i].setPosition(8);
             }
-            if (i==5)
-            {
+            if (i == 5) {
                 buildings[i].setPosition(9);
             }
-            if (i==6)
-            {
+            if (i == 6) {
                 buildings[i].setPosition(11);
             }
-            if (i==8)
-            {
+            if (i == 8) {
                 buildings[i].setPosition(12);
             }
-            if (i==9)
-            {
+            if (i == 9) {
                 buildings[i].setPosition(14);
             }
-            if (i==10)
-            {
+            if (i == 10) {
                 buildings[i].setPosition(15);
             }
-            if (i==11)
-            {
+            if (i == 11) {
                 buildings[i].setPosition(17);
             }
-            if (i==12)
-            {
+            if (i == 12) {
                 buildings[i].setPosition(18);
             }
-            if (i==13)
-            {
+            if (i == 13) {
                 buildings[i].setPosition(20);
             }
-            if (i==14)
-            {
+            if (i == 14) {
                 buildings[i].setPosition(21);
             }
-            if (i==15)
-            {
-                buildings[i].setPosition(22);
+            if (i == 15) {
+                buildings[i].setPosition(23);
+            }
+            if (i == 16) {
+                buildings[i].setPosition(24);
             }
         }
 
@@ -175,27 +176,19 @@ public class Game {
         System.out.println("\n***!WELCOME TO MONOPOLY!***\n");
 
         //Select number of players
-        int numberOfPlayers = 0;
-        while (true) {
-            Scanner number = new Scanner(System.in);
-            System.out.println("Enter number of players (min: 3/max: 5) : ");
-            numberOfPlayers = number.nextInt();
-            if (numberOfPlayers <= 2) {
-                System.out.println("You need to choose more players.");
-            }
-            if (numberOfPlayers >= 5) {
-                System.out.println("You need to choose less players.");
-            }
-            if (numberOfPlayers == 3 | numberOfPlayers == 4 | numberOfPlayers == 5) {
-                System.out.println("You chose " + numberOfPlayers + " players.");
+        int numberOfPlayers;
+        while(true){
+            numberOfPlayers = input.readInt("Choose number of players (min 3 / max 6):");
+            if (numberOfPlayers >= 3 && numberOfPlayers <= 6) {
                 break;
             }
+            else
+            {
+                System.out.println("Wrong number of players. Try again.");
+            }
         }
-        //Press enter to continue
-        Game enter = new Game();
-        enter.pressEnterToContinue();
 
-        Game dice1 = new Game();
+        int playersAlive = numberOfPlayers;
 
         //Set names of players
         System.out.println("Now choose names of players");
@@ -203,9 +196,7 @@ public class Game {
         String nameOfPlayer;
         for (int i = 0; i < numberOfPlayers; i++)
         {
-            Scanner name = new Scanner(System.in);
-            System.out.println("Enter name of player number " + (i+1) + " :");
-            nameOfPlayer = name.nextLine();
+            nameOfPlayer = input.readString("Enter name of player number " + (i+1) + " :");
             players[i] = new Player(nameOfPlayer);
         }
 
@@ -223,16 +214,33 @@ public class Game {
         System.out.println("***!THE GAME CAN BEGIN!***\n");
         enter.pressEnterToContinue();
 
-
+        int gameOver = 0;
         int numberFromDice;
         int newPosition;
         while(true) {
             for (int j = 0; j < numberOfPlayers; j++) {
+
+                //Checking game over
+                if (playersAlive == 1)
+                {
+                    System.out.println("\nGAME OVER!");
+
+                    //Getting the only alive player name
+                    for (int i = 0; i<numberOfPlayers;i++)
+                    {
+                        if (players[i].isDead()==false)
+                        {
+                            System.out.println("\n***Player [" + players[i].getName() + "] WON!***");
+                        }
+                    }
+                    gameOver = 1;
+                    break;
+                }
                 //Skipping dead players
                 if (players[j].isDead() == true) {
                     j++;
                 }
-
+                System.out.println("-------------------------------------------------------------------------------------------------");
                 System.out.println("\n***Player [" + players[j].getName() + "] is on turn***");
                 System.out.println("\nHere is your profile:\n" + players[j] + "\n");
                 System.out.println("\nPress enter to throw the dice\n");
@@ -271,6 +279,7 @@ public class Game {
                 //If player finishes round
                 if (newPosition > 24) {
                     newPosition = numberFromDice - (24 - lastPosition);
+                    players[j].setPosition(newPosition);
                     //If player is on START
                     if (newPosition == 1) {
                         System.out.println("\nGood job, you survived another round. Now you are standing on START, here is 200 money to your budget");
@@ -285,7 +294,7 @@ public class Game {
                     }
                     enter.pressEnterToContinue();
                 }
-                System.out.println("New position of player [" + players[j].getName() + "] is: " + newPosition + "\n");
+                System.out.println("New position of player [" + players[j].getName() + "] is: " + players[j].getPosition() + "\n");
                 enter.pressEnterToContinue();
 
 
@@ -295,12 +304,12 @@ public class Game {
                 for (int i = 0; i < 16; i++) {
 
                     //If somebody owns building on players position
-                    if (newPosition == buildings[i].getPosition() && buildings[i].getOwner() != "None") {
-                        System.out.println("\nOn this position is building named <" + buildings[i].getName() + "> that belongs to player [" + buildings[i].getOwner() + "]\nThe fine by steppin on his property is " + buildings[i].getFine() + " and it was automatically taken from your budget and transfered to his\n");
+                    if (newPosition == buildings[i].getPosition() && buildings[i].getOwner() != "None" && buildings[i].getOwner() != players[j].getName()) {
+                        System.out.println("\nOn this position is building named <" + buildings[i].getName() + "> that belongs to player [" + buildings[i].getOwner() + "]\nThe fine by stepping on his property is " + buildings[i].getFine() + " and it was automatically taken from your budget and transfered to his\n");
                         players[j].setBudget(-buildings[i].getFine());
                         //If player didnt die (transfering cash to other player)
                         if (players[j].getBudget() >= 0) {
-                            for (int l = 0; i < numberOfPlayers; l++) {
+                            for (int l = 0; l < numberOfPlayers; l++) {
                                 if (players[l].getName() == buildings[i].getOwner()) {
                                     players[l].setBudget(buildings[i].getFine());
                                     System.out.println("\nPlayer's [" + players[l].getName() + "] budget is now: " + players[l].getBudget());
@@ -314,16 +323,17 @@ public class Game {
                             System.out.println("\n*RIP* YOU WENT BANKRUPT *RIP*");
                             System.out.println("\nAll buildings of player [" + players[j].getName() + "] are free to buy now");
                             players[j].setDead();//rip
+                            playersAlive--;
 
                             //If player died (transfering rest of his money to other player - cant get full fine)
-                            for (int l = 0; i < numberOfPlayers; l++) {
+                            for (int l = 0; l < numberOfPlayers; l++) {
                                 if (players[l].getName() == buildings[i].getOwner()) {
                                     players[l].setBudget(buildings[i].getFine() + players[j].getBudget());
                                     System.out.println("\nPlayer [" + players[l].getName() + "] got the rest of you money and his budget is now: " + players[l].getBudget() + "\n");
                                 }
                             }
                             //Setting players building free to buy
-                            for (int k = 0; k < 16; k++) {
+                            for (int k = 0; k < 17; k++) {
                                 if (buildings[k].getOwner() == players[j].getName()) {
                                     buildings[k].setOwner("None");
                                 }
@@ -332,16 +342,27 @@ public class Game {
                         enter.pressEnterToContinue();
                     }
 
+                    //Stepping on your own building
+                    if (newPosition == buildings[i].getPosition() && buildings[i].getOwner() == players[j].getName())
+                    {
+                        System.out.println("\nYou just visited you own building <" + buildings[i].getName() + "> enjoy!.");
+                        enter.pressEnterToContinue();
+                    }
+
                     //If nobody owns building on players position
                     if (newPosition == buildings[i].getPosition() && buildings[i].getOwner() == "None") {
-                        System.out.println("\nOn this position is building named <" + buildings[i].getName() + "> that doesnt belong to anybody\nDo you want to purchase it for " + buildings[i].getCost() + " money? [1/0]\n");
+                        System.out.println("\nOn this position is building named <" + buildings[i].getName() + "> that doesnt belong to anybody.");
+                        System.out.println("\nBuilding's cost is: " + buildings[i].getCost());
+                        System.out.println("The fine when somebody steps on this building is: " + buildings[i].getFine());
+                        System.out.println("Your budget is: " + players[j].getBudget());
                         while (true) {
-                            Scanner answer = new Scanner(System.in);
-                            answerFromPlayer = answer.nextInt();
+
+                            answerFromPlayer = input.readInt("\nDo you want to purchase it? (yes = 1/ no = 0)\n");
 
                             //If player decides to buy building
                             if (answerFromPlayer == 1) {
                                 if (players[j].getBudget() >= buildings[i].getCost()) {
+                                    players[j].setBudget(-buildings[i].getCost());
                                     buildings[i].setOwner(players[j].getName());
                                     System.out.println("Congratulations! You just bought yourself a brand new property!\nTheres some information about this building:\n\n" + buildings[i] + "\n");
                                     break;
@@ -384,27 +405,53 @@ public class Game {
                     enter.pressEnterToContinue();
                 }
 
+                //Stepping on CHANCE
+                if(newPosition == 4 | newPosition == 10 | newPosition == 16 | newPosition == 22)
+                {
+                    int cardNumber = card.randomChance();
+                    int moneyFromChance = chance.getChance(cardNumber);
+                    System.out.println("\nYou stepped on CHANCE\nGo ahead grab a card!\n");
+                    enter.pressEnterToContinue();
+                    System.out.println("\nNumber of your card is " + cardNumber + ". Read the description of your card:");
+                    //Loosing money by chance card
+                    if (moneyFromChance < 0)
+                    {
+                        System.out.println("\nUnlucky! You have to pay " + moneyFromChance +"- money");
+                        players[j].setBudget(moneyFromChance);
+                        if (players[j].getBudget()<0)
+                        {
+                            System.out.println("\nYOU DIED BECAUSE OF THIS CHANCE CARD. RIP! ALL OF YOURS BUILDINGS ARE NOW FREE TO BUY\n");
+                            players[j].setDead();
+                            //Setting players building free to buy
+                            for (int k = 0; k < 17; k++) {
+                                if (buildings[k].getOwner() == players[j].getName()) {
+                                    buildings[k].setOwner("None");
+                                }
+                            }
+                            playersAlive--;
+                            enter.pressEnterToContinue();
+                        }
+                        else{
+                            System.out.println("\nYou current budget is " + players[j].getBudget() +" money\n");
+                            enter.pressEnterToContinue();
+                        }
+                    }
 
+                    //Getting money from chance card
+                    if (moneyFromChance >= 0)
+                    {
+                        System.out.println("\nYou are getting " + moneyFromChance +"- money from you chance");
+                        players[j].setBudget(moneyFromChance);
+                        System.out.println("\nYou current budget is " + players[j].getBudget() +" money\n");
+                        enter.pressEnterToContinue();
+                    }
+                }
             }
-            //Checking game over
-            int end=0;
-            String winner= "";
-            for(int i = 0 ;i<numberOfPlayers; i++)
+
+            //Break game
+            if (gameOver == 1)
             {
-                if (players[i].isDead()==true)
-                {
-                    end+=1;
-                }
-                if (players[i].isDead()==false)
-                {
-                    winner = players[i].getName();
-                }
-                if (end == numberOfPlayers-1)
-                {
-                    System.out.println("\n!GAME OVER!\n");
-                    System.out.println("\nWINNER IS: " + winner + "\nCONGRATULATIONS");
-                    break;
-                }
+                break;
             }
         }
     }
