@@ -1,57 +1,32 @@
 package sk.stuba.fei.uim.oop;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class Chances {
 
-    private int moneyFromChance;
+    private Queue<Integer> q = new LinkedList<>();
 
     public Chances(){
 
-        moneyFromChance = 0;
+        int moneyFromChance = 50;
+        int fineFromChance = -30;
+
+        for (int i = 0; i < 5; i++) {
+            if (i%2==0){
+                q.add(moneyFromChance);
+            }
+            if (i%2!=0){
+                q.add(fineFromChance);
+            }
+            moneyFromChance+=20;
+            fineFromChance-=20;
+        }
     }
 
-    //Choosing chance reward based on card number
-    public int getChance(int numberOfChanceCard)
-    {
-        if( numberOfChanceCard == 1)
-        {
-            moneyFromChance = 100;
-        }
-        if( numberOfChanceCard == 2)
-        {
-            moneyFromChance = 200;
-        }
-        if( numberOfChanceCard == 3)
-        {
-            moneyFromChance = 300;
-        }
-        if( numberOfChanceCard == 4)
-        {
-            moneyFromChance = -100;
-        }
-        if( numberOfChanceCard == 5)
-        {
-            moneyFromChance = -150;
-        }
-        if( numberOfChanceCard == 6)
-        {
-            moneyFromChance = -200;
-        }
-        if( numberOfChanceCard == 7)
-        {
-            moneyFromChance =-1;
-        }
-        if( numberOfChanceCard == 8)
-        {
-            moneyFromChance = 1;
-        }
-        if( numberOfChanceCard == 9)
-        {
-            moneyFromChance = 800;
-        }
-        if( numberOfChanceCard == 10)
-        {
-            moneyFromChance = 50;
-        }
-        return moneyFromChance;
+    public int getChance() {
+        int firstCard = q.peek();
+        int removeFirstCardFromPack= q.remove();
+        q.add(firstCard); //adding grabbed card at the end of pack
+        return firstCard;
     }
 }
