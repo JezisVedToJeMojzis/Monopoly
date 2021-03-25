@@ -16,7 +16,7 @@ public class KeyboardInput
         }
         catch (Exception e)
         {
-            System.out.println("Wrong input. Try again.");
+            System.out.println("Wrong input. Try again...");
             c = readChar(string_for_user);
         }
 

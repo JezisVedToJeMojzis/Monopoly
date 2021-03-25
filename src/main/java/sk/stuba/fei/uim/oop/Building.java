@@ -17,7 +17,7 @@ public class Building {
         owner = "None";
     }
 
-    //Get name of player who owns this building
+    //Get name of player who owns this building.
     public String getOwner ()
     {
         return owner;

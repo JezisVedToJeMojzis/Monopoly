@@ -6,7 +6,7 @@ public class Parking {
 
     public Parking()
     {
-        parkingSpeech = "\nYou are at parking. You can rest. Next player can get ready.\n";
+        parkingSpeech = "\nYou are at parking... You can rest. Next player can get ready.\n";
         parkingPosition = 13;
     }
 

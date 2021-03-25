@@ -6,7 +6,7 @@ public class Prison {
 
     public Prison()
     {
-        prisonSpeech = "\nYou are on educational excursion in prison. ENJOY!\n";
+        prisonSpeech = "\nYou are on educational excursion in prison. ENJOY! :)\n";
         prisonPosition = 7;
     }
     public String getPrisonSpeech()

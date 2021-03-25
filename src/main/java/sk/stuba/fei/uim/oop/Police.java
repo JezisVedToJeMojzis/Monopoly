@@ -6,7 +6,7 @@ public class Police {
 
     public Police()
     {
-        policeBrutality = "\nYou were caught by the Police! You were sentenced to spend 2 laps in prison!\n";
+        policeBrutality = "\nYou were caught by the Police! You were sentenced to spend 2 laps in prison!!!\n";
         policePosition = 19;
     }
 

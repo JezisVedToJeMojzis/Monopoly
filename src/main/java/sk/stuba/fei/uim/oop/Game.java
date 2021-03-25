@@ -6,7 +6,7 @@ import java.util.Random;
 //       13 = PARKING
 //       19 = POLICE
 //       4,10,16,22 = CHANCE
-//       2,3,5,6,8,9,11,12,14,15,17,18,20,21,23,24 = BUILDINGS
+//.      2,3,5,6,8,9,11,12,14,15,17,18,20,21,23,24 = BUILDINGS
 
 public class Game {
 
