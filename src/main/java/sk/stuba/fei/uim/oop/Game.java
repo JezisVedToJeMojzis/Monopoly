@@ -33,6 +33,7 @@ public class Game {
         Parking parking = new Parking();
         Police police = new Police();
         Prison prison = new Prison();
+        Start start = new Start();
 
         //Setting buildings (name,cost,fine,position)
         String nameOfBuilding;
@@ -237,8 +238,8 @@ public class Game {
                         newPosition = (numberFromDice - (24 - lastPosition))/2;
                         players[j].setPosition(newPosition);
                         //If player is on START
-                        if (newPosition == 1) {
-                            System.out.println("\nGood job, you survived another round. Now you are standing on START, here is 200 money to your budget");
+                        if (newPosition == start.getStartPosition()) {
+                            System.out.println(start.getStartSpeech());
                             players[j].setBudget(200);
                             System.out.println("\nYour current budget is: " + players[j].getBudget() + "\n");
                         }

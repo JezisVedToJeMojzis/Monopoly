@@ -9,11 +9,12 @@ public class Player {
     private boolean inJail;
     private int lapsInJail;
     private boolean dead;
+    Start start = new Start();
 
     public Player()
     {
         name = new String("UNKNOWN");;
-        position = 1;
+        position = start.getStartPosition();
         budget = 500;
         buildings = "None";
         inJail = false;
@@ -24,7 +25,7 @@ public class Player {
     public Player(String nick)
     {
         name = nick;
-        position = 1;
+        position = start.getStartPosition();
         budget = 500;
         buildings = "None";
         inJail = false;
