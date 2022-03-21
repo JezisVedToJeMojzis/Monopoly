@@ -1,4 +1,6 @@
-Your task is to create a simplified version of the board game Monopoly in the form of a Java console application. The board consists of the following 24 tiles:
+Board game Monopoly in the form of a Java console application. 
+
+The board consists of the following 24 tiles:
 
 * 4 corner tiles (start, jail, police (go to jail), tax payment)
 * 4 chance tiles (the game must have at least 5 chance cards)
